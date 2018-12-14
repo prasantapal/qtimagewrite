@@ -1,0 +1,5 @@
+*.o
+*.app
+*.txt
+*.png
+.DS_Store
