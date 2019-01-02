@@ -24,11 +24,12 @@
 #include <QString>
 #include <QFileDialog>
 #include <QTranslator>
+#define max_points 422;
 void generate_random_numbers(std::vector<double>& v);
 void draw_vector_to_image(std::string path,std::vector<double>& v);
 int main(int argc, char *argv[])
 {
-  int n = 300;
+  int n = max_points;
   std::vector<double> v(n);
   generate_random_numbers(v);
   QApplication a(argc, argv);
@@ -49,9 +50,8 @@ void generate_random_numbers(std::vector<double>& v){
   std::copy(v.begin(),v.end(),std::ostream_iterator<double>(std::cout," " ));
 }
 void draw_vector_to_image(std::string path_str,std::vector<double>& v){
-  static int maxPoints = 300;
+  static int maxPoints = max_points;
   static int maxPenWidth = 20;
-
   static int w = 3000;
   static int h = 2000;
   static int midX = w/2;
@@ -71,11 +71,10 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
   pixmap.fill(Qt::black);
   img.fill(Qt::black);
   QPainter painter(&img);
-  int  penWidth = 20;
-  penWidth = wMargin/maxPoints;
-
-  std::cout << penWidth << std::endl;
-
+  int  spaceWidth = {0};
+  int  penWidth = {2};
+  spaceWidth = wMargin/std::max<int>(1,(maxPoints - 1));
+  std::cout << spaceWidth << std::endl;
   int penMargin = 3; ///Pixel unit
   QColor color(QColor(100,100,100));
   QPen pen(color);
@@ -83,7 +82,7 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
   painter.setPen(pen);
   painter.drawLine(startX,midY,startX + wMargin,midY);
   painter.drawRect(startX,startY,wMargin,hMargin);
-  std::for_each(v.begin(),v.end(),[&painter,&penWidth,&penMargin](double& val){
+  std::for_each(v.begin(),v.end(),[&painter,&spaceWidth,&penMargin,&penWidth](double& val){
       static std::random_device rnd_device;
       // Specify the engine and distribution.
       std::mt19937 mersenne_engine {rnd_device()};  // Generates random integers
@@ -92,21 +91,29 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
       return dist(mersenne_engine);
       };
       static int counter = 0;
-      int tickPointStartX = startX + penMargin + penWidth*counter;
-      int tickPointEndX = tickPointStartX + penWidth;
-      int tickPointStartY = midY;
-      int tickPointEndY = midY - val*yScale;
+      static int width = 10;
+      static int tickPointStartX = margin + penMargin + spaceWidth*counter;
+      static int tickPointEndX = tickPointStartX + spaceWidth;
+      static int tickPointStartY;
+      static int tickPointEndY;
+      if(counter == 0) {
+      tickPointStartX = margin + penMargin;
+      tickPointStartY = midY - val*yScale ;
+      tickPointEndX = tickPointStartX ;
+      tickPointEndY = tickPointStartY ;
+      }else {
+      tickPointEndX = tickPointStartX + spaceWidth;
+      tickPointEndY = midY - val*yScale ; ;
+
+      }
       std::cout << "val :" << val << " " << yScale<< std::endl;
-
       QPen pen;
-      if(val>0)
-      pen.setColor(QColor(10,10,val*gen()));
-      else
-      pen.setColor(QColor(-val*gen(),10,10));
-
+      pen.setColor(QColor(0,128,0));
       pen.setWidth(penWidth);
       painter.setPen(pen);
-      painter.drawLine(tickPointStartX,tickPointStartY,tickPointStartX,tickPointEndY);
+      painter.drawLine(tickPointStartX,tickPointStartY,tickPointEndX,tickPointEndY);
+      tickPointStartX = tickPointEndX;
+      tickPointStartY = tickPointEndY;
       ++counter;
   });
   QString path(path_str.c_str());
