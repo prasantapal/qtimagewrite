@@ -91,9 +91,8 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
       return dist(mersenne_engine);
       };
       static int counter = 0;
-      static int width = 10;
-      static int tickPointStartX = margin + penMargin + spaceWidth*counter;
-      static int tickPointEndX = tickPointStartX + spaceWidth;
+      static int tickPointStartX;
+      static int tickPointEndX;
       static int tickPointStartY;
       static int tickPointEndY;
       if(counter == 0) {
@@ -104,11 +103,10 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
       }else {
       tickPointEndX = tickPointStartX + spaceWidth;
       tickPointEndY = midY - val*yScale ; ;
-
       }
       std::cout << "val :" << val << " " << yScale<< std::endl;
       QPen pen;
-      pen.setColor(QColor(0,128,0));
+      pen.setColor(QColor(0,255,0));
       pen.setWidth(penWidth);
       painter.setPen(pen);
       painter.drawLine(tickPointStartX,tickPointStartY,tickPointEndX,tickPointEndY);
