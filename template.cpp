@@ -50,6 +50,7 @@ void generate_random_numbers(std::vector<double>& v){
   std::copy(v.begin(),v.end(),std::ostream_iterator<double>(std::cout," " ));
 }
 void draw_vector_to_image(std::string path_str,std::vector<double>& v){
+  static int baseline_point=30;
   static int maxPoints = max_points;
   static int maxPenWidth = 20;
   static int w = 3000;
@@ -80,8 +81,20 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
   QPen pen(color);
   pen.setWidth(penWidth);
   painter.setPen(pen);
-  painter.drawLine(startX,midY,startX + wMargin,midY);
   painter.drawRect(startX,startY,wMargin,hMargin);
+pen.setStyle( Qt::DashDotLine );
+pen.setColor( "purple" );
+  painter.setPen(pen);
+  painter.drawLine(startX,midY,startX + wMargin,midY);
+  int baselineVerticalX = startX + spaceWidth*baseline_point;
+
+  std::tuple<int,int,int,int> baselineVerticalPoint(baselineVerticalX,midY-yScale,baselineVerticalX,midY+yScale);
+pen.setStyle( Qt::DashDotLine );
+pen.setColor( "orange" );
+  painter.setPen(pen);
+  painter.drawLine(std::get<0>(baselineVerticalPoint),std::get<1>(baselineVerticalPoint),std::get<2>(baselineVerticalPoint),std::get<3>(baselineVerticalPoint));
+
+
   std::for_each(v.begin(),v.end(),[&painter,&spaceWidth,&penMargin,&penWidth](double& val){
       static std::random_device rnd_device;
       // Specify the engine and distribution.
@@ -108,6 +121,7 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
       QPen pen;
       pen.setColor(QColor(0,255,0));
       pen.setWidth(penWidth);
+
       painter.setPen(pen);
       painter.drawLine(tickPointStartX,tickPointStartY,tickPointEndX,tickPointEndY);
       tickPointStartX = tickPointEndX;

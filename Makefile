@@ -13,9 +13,9 @@ MAKEFILE      = Makefile
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.11 -Weverything -W -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.11 -Weverything -W -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.11.2/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.11.2/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/Cellar/qt/5.11.2/mkspecs/macx-clang -F/usr/local/Cellar/qt/5.11.2/lib
+CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
+INCPATH       = -I. -I. -I/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.11.2/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.11.2/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/Cellar/qt/5.11.2/mkspecs/macx-clang -F/usr/local/Cellar/qt/5.11.2/lib
 QMAKE         = /usr/local/opt/qt/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,8 +37,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = pixmap1.0.0
 DISTDIR = /Users/prasantapal/softwares/my/tests/pixmap/.tmp/pixmap1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.11 -Wl,-rpath,@executable_path/Frameworks
-LIBS          = $(SUBLIBS) -F/usr/local/Cellar/qt/5.11.2/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL
+LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.11 -Wl,-rpath,@executable_path/Frameworks
+LIBS          = $(SUBLIBS) -F/usr/local/Cellar/qt/5.11.2/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -50,7 +50,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = template.cpp
+SOURCES       = template.cpp 
 OBJECTS       = template.o
 DIST          = /usr/local/Cellar/qt/5.11.2/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/5.11.2/mkspecs/qdevice.pri \
@@ -242,12 +242,12 @@ DIST          = /usr/local/Cellar/qt/5.11.2/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/5.11.2/mkspecs/features/lex.prf \
 		pixmap.pro template.h template.cpp
 QMAKE_TARGET  = pixmap
-DESTDIR       =
+DESTDIR       = 
 TARGET        = pixmap.app/Contents/MacOS/pixmap
 
 ####### Custom Variables
 EXPORT_QMAKE_MAC_SDK = macosx
-EXPORT_QMAKE_MAC_SDK_VERSION = 10.13
+EXPORT_QMAKE_MAC_SDK_VERSION = 10.14
 EXPORT_VALID_ARCHS = x86_64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
@@ -257,7 +257,7 @@ include /usr/local/Cellar/qt/5.11.2/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-$(TARGET):  $(OBJECTS)
+$(TARGET):  $(OBJECTS)  
 	@test -d pixmap.app/Contents/MacOS/ || mkdir -p pixmap.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -651,15 +651,15 @@ qmake: FORCE
 
 qmake_all: FORCE
 
-pixmap.app/Contents/PkgInfo:
+pixmap.app/Contents/PkgInfo: 
 	@test -d pixmap.app/Contents || mkdir -p pixmap.app/Contents
 	@$(DEL_FILE) pixmap.app/Contents/PkgInfo
 	@echo "APPL????" > pixmap.app/Contents/PkgInfo
-pixmap.app/Contents/Resources/empty.lproj:
+pixmap.app/Contents/Resources/empty.lproj: 
 	@test -d pixmap.app/Contents/Resources || mkdir -p pixmap.app/Contents/Resources
 	@touch pixmap.app/Contents/Resources/empty.lproj
-
-pixmap.app/Contents/Info.plist:
+	
+pixmap.app/Contents/Info.plist: 
 	@test -d pixmap.app/Contents || mkdir -p pixmap.app/Contents
 	@$(DEL_FILE) pixmap.app/Contents/Info.plist
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,\$${QMAKE_SHORT_VERSION},1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,\$${QMAKE_FULL_VERSION},1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.pixmap,g" -e "s,\$${PRODUCT_BUNDLE_IDENTIFIER},com.yourcompany.pixmap,g" -e "s,\$${MACOSX_DEPLOYMENT_TARGET},10.11,g" -e "s,\$${IPHONEOS_DEPLOYMENT_TARGET},,g" -e "s,\$${TVOS_DEPLOYMENT_TARGET},,g" -e "s,\$${WATCHOS_DEPLOYMENT_TARGET},,g" -e "s,@ICON@,,g" -e "s,\$${ASSETCATALOG_COMPILER_APPICON_NAME},,g" -e "s,@EXECUTABLE@,pixmap,g" -e "s,@LIBRARY@,pixmap,g" -e "s,\$${EXECUTABLE_NAME},pixmap,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" /usr/local/Cellar/qt/5.11.2/mkspecs/macx-clang/Info.plist.app >pixmap.app/Contents/Info.plist
@@ -680,12 +680,12 @@ distdir: FORCE
 	$(COPY_FILE) --parents template.cpp $(DISTDIR)/
 
 
-clean: compiler_clean
+clean: compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
 
-distclean: clean
+distclean: clean 
 	-$(DEL_FILE) -r pixmap.app
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
@@ -707,7 +707,7 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/local/Cellar/qt/5.11.2/mkspecs/features/data/dummy.cpp
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.11 -Wall -W -dM -E -o moc_predefs.h /usr/local/Cellar/qt/5.11.2/mkspecs/features/data/dummy.cpp
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.11 -Wall -W -dM -E -o moc_predefs.h /usr/local/Cellar/qt/5.11.2/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all:
 compiler_moc_header_clean:
@@ -725,7 +725,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean
+compiler_clean: compiler_moc_predefs_clean 
 
 ####### Compile
 
@@ -1010,7 +1010,12 @@ template.o: template.cpp template.h \
 		/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers/qlabel.h \
 		/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers/QApplication \
 		/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers/qapplication.h \
-		/usr/local/Cellar/qt/5.11.2/lib/QtGui.framework/Headers/QColor
+		/usr/local/Cellar/qt/5.11.2/lib/QtGui.framework/Headers/QColor \
+		/usr/local/Cellar/qt/5.11.2/lib/QtGui.framework/Headers/QImage \
+		/usr/local/Cellar/qt/5.11.2/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers/QFileDialog \
+		/usr/local/Cellar/qt/5.11.2/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/usr/local/Cellar/qt/5.11.2/lib/QtCore.framework/Headers/QTranslator
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o template.o template.cpp
 
 ####### Install
