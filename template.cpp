@@ -1,6 +1,6 @@
 /*
  *   CPP header template
- *   Developed by Dr. Prasanta Pal
+ *   Developed by Dr. Prasanta Pal, UMASS MEdical School && Brown University School of Public Health
  */
 #include <cstdio>
 #include <cstdlib>
@@ -65,16 +65,16 @@ void draw_vector_to_image(std::string path_str,std::vector<double>& v){
   static int hMargin = h - 2*margin;
   static int hMarginHalf = hMargin/2.0;
   static int yScale = hMarginHalf;
-  static int startX = margin;
-  static int startY = margin;
+  static double startX = margin;
+  static double startY = margin;
   QImage img(w, h, QImage::Format_ARGB32);
   QPixmap pixmap(w,h);
   pixmap.fill(Qt::black);
   img.fill(Qt::black);
   QPainter painter(&img);
-  int  spaceWidth = {0};
+  double  spaceWidth = {0};
   int  penWidth = {2};
-  spaceWidth = wMargin/std::max<int>(1,(maxPoints - 1));
+  spaceWidth = static_cast<double>(wMargin)/std::max<int>(1,(maxPoints));
   std::cout << spaceWidth << std::endl;
   int penMargin = 3; ///Pixel unit
   QColor color(QColor(100,100,100));
@@ -94,8 +94,12 @@ pen.setColor( "orange" );
   painter.setPen(pen);
   painter.drawLine(std::get<0>(baselineVerticalPoint),std::get<1>(baselineVerticalPoint),std::get<2>(baselineVerticalPoint),std::get<3>(baselineVerticalPoint));
 
+  pen.setColor(QColor(0,255,0));
+  pen.setWidth(penWidth);
+pen.setStyle( Qt::SolidLine );
+  painter.setPen(pen);
 
-  std::for_each(v.begin(),v.end(),[&painter,&spaceWidth,&penMargin,&penWidth](double& val){
+  std::for_each(v.begin(),v.end(),[&painter,&spaceWidth,&penMargin](double& val){
       static std::random_device rnd_device;
       // Specify the engine and distribution.
       std::mt19937 mersenne_engine {rnd_device()};  // Generates random integers
@@ -104,11 +108,12 @@ pen.setColor( "orange" );
       return dist(mersenne_engine);
       };
       static int counter = 0;
-      static int tickPointStartX;
-      static int tickPointEndX;
-      static int tickPointStartY;
-      static int tickPointEndY;
+      static double tickPointStartX;
+      static double tickPointEndX;
+      static double tickPointStartY;
+      static double tickPointEndY;
       if(counter == 0) {
+
       tickPointStartX = margin + penMargin;
       tickPointStartY = midY - val*yScale ;
       tickPointEndX = tickPointStartX ;
@@ -117,12 +122,7 @@ pen.setColor( "orange" );
       tickPointEndX = tickPointStartX + spaceWidth;
       tickPointEndY = midY - val*yScale ; ;
       }
-      std::cout << "val :" << val << " " << yScale<< std::endl;
-      QPen pen;
-      pen.setColor(QColor(0,255,0));
-      pen.setWidth(penWidth);
-
-      painter.setPen(pen);
+      std::cout << "counter:" << counter  << " " << spaceWidth << " " << penMargin << " " << margin << " " << wMargin << " "  << tickPointStartX << " "  << tickPointEndX<< std::endl;
       painter.drawLine(tickPointStartX,tickPointStartY,tickPointEndX,tickPointEndY);
       tickPointStartX = tickPointEndX;
       tickPointStartY = tickPointEndY;
